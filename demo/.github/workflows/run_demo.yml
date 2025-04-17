@@ -19,6 +19,44 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
+        python-version: '3.9'  # 可根據需要調整版本
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt  # 安裝 Python 依賴
+
+    - name: Install Jupyter Notebook
+      run: |
+        pip install notebook  # 安裝 Jupyter
+
+    - name: Run Jupyter Notebook
+      run: |
+        jupyter nbconvert --to notebook --execute demo_notebook.ipynb 
+--output result_notebook.ipynb
+        # 假設你的 notebook 名稱是 demo_notebook.ipynb
+        # 這行命令會運行 notebook 並將結果保存為 result_notebook.ipynname: Run 
+A2A Demo 
+Notebook
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  run_notebook:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
         python-version: '3.8'
 
     - name: Install dependencies
